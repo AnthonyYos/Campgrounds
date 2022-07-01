@@ -18,7 +18,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 
 const passport = require("passport");
-const passportLocal = require("passport-local");
+const LocalStrategy = require("passport-local");
 const User = require("./models/user");
 
 // Routes
@@ -77,7 +77,7 @@ app.use(passport.initialize());
 // Use if we want persistant login sessions (make sure it comes after session)
 app.use(passport.session());
 // User.autheticate comes from passport-local-mongoose (imported in the User.js model)
-passport.use(new passportLocal(User.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 // Use to tell how to store user in session
 passport.serializeUser(User.serializeUser());
 // Use to tell how to get user out of session
