@@ -27,7 +27,8 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 // mongo atlas
-const db_url = process.env.db_url || 'mongodb://localhost:27017/campgrounds';
+// const db_url = process.env.db_url || 'mongodb://localhost:27017/campgrounds';
+const db_url = 'mongodb://localhost:27017/campgrounds';
 const secret = process.env.secret || "1234";
 
 
@@ -97,18 +98,13 @@ app.use((req, res, next) => {
     next();
 })
 
+// Homepage
+app.get("/", (req, res) => res.render("home"));
+app.use("/", userRoutes);
 // Setting route prefixes and route source
 app.use("/campgrounds", campgroundRoutes);
 // By default reviewRoutes won't have access to :id, as this req.params is separate from req.params from reviewRoutes
 app.use("/campgrounds/:id/reviews", reviewRoutes);
-app.use("/", userRoutes);
-
-
-
-// Homepage
-app.get("/", (req, res) => {
-    res.render("home")
-});
 
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page not found", 404));
