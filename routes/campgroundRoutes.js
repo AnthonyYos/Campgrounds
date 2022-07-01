@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
-const { isLoggedIn, isAuthor } = require("../utils/userPermissions");
+const { isLoggedIn, isAuthorOrAdmin } = require("../utils/userPermissions");
 const { validateCampground } = require("../utils/formValidation");
 const campgroundsContoller = require("../controllers/campgrounds");
 
@@ -15,10 +15,10 @@ router.get("/new", isLoggedIn, campgroundsContoller.renderNewForm);
 
 router.route("/:id")
     .get(catchAsync(campgroundsContoller.showCampground))
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgroundsContoller.updateCampground))
-    .delete(isLoggedIn, isAuthor, catchAsync(campgroundsContoller.deleteCampground));
+    .put(isLoggedIn, isAuthorOrAdmin, validateCampground, catchAsync(campgroundsContoller.updateCampground))
+    .delete(isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.deleteCampground));
 
-router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgroundsContoller.editForm));
+router.get("/:id/edit", isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.editForm));
 
 /***********************************OLD ROUTES WAY**********************************
 // Campground index

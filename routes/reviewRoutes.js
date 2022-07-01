@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const ExpressError = require("../utils/ExpressError");
 const catchAsync = require("../utils/catchAsync");
-const { isLoggedIn, isReviewAuthor } = require("../utils/userPermissions");
+const { isLoggedIn, isReviewAuthorOrAdmin } = require("../utils/userPermissions");
 const { validateReview } = require("../utils/formValidation");
 const reviewController = require("../controllers/review");
 
@@ -12,6 +12,6 @@ const reviewController = require("../controllers/review");
 router.post("/", isLoggedIn, validateReview, catchAsync(reviewController.postReview))
 
 //Delete reviews
-router.delete("/:reviewId", isLoggedIn, isReviewAuthor, catchAsync(reviewController.deleteReview))
+router.delete("/:reviewId", isLoggedIn, isReviewAuthorOrAdmin, catchAsync(reviewController.deleteReview))
 
 module.exports = router;
