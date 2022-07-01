@@ -1,0 +1,5 @@
+GET http://localhost:3000/campgrounds
+
+###
+
+GET http://localhost:3000/campgrounds/62ba0022852b66f2288f7ccd
