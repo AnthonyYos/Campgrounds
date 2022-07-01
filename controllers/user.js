@@ -1,6 +1,5 @@
-const passport = require('passport');
+// src https://github.com/saintedlama/passport-local-mongoose/tree/main/examples/login
 const User = require("../models/user");
-
 
 const registerForm = (req, res) => {
     res.render("users/register");
@@ -8,8 +7,10 @@ const registerForm = (req, res) => {
 
 const registerUser = async (req, res, next) => {
     try {
-        const { email, username, password } = req.body;
+        const { email, username, password, passwordConfirm } = req.body;
+        if (password !== passwordConfirm) throw error;
         const user = new User({ email, username });
+        user.roles.push("user");
         // .register(user, password, cb) Convenience method to register a new user instance with a given password. Checks if username is unique.
         const registeredUser = await User.register(user, password);
         // req.login given by passport, use to login user after registeration
@@ -19,7 +20,7 @@ const registerUser = async (req, res, next) => {
             res.redirect('/campgrounds');
         });
     } catch (e) {
-        req.flash("error", e.message);
+        req.flash("error", "Username taken or passwords did not match.");
         res.redirect("register");
     }
 }
@@ -29,7 +30,6 @@ const loginForm = (req, res) => {
 }
 
 const login = (req, res) => {
-    req.flash('success', `Welcome ${req.user.username}`);
     // returnTo doesn't working w/ express V0.60 due to bugs
     const redirectUrl = req.session.returnTo || '/campgrounds';
     delete req.session.returnTo;
