@@ -27,8 +27,8 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const userRoutes = require("./routes/userRoutes");
 
 // mongo atlas
-// const db_url = process.env.db_url || 'mongodb://localhost:27017/campgrounds';
-const db_url = 'mongodb://localhost:27017/campgrounds';
+const db_url = process.env.db_url || 'mongodb://localhost:27017/campgrounds';
+// const db_url = 'mongodb://localhost:27017/campgrounds';
 const secret = process.env.secret || "1234";
 
 
