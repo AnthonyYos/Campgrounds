@@ -9,7 +9,7 @@ const campgroundsContoller = require("../controllers/campgrounds");
 /***********************************NEW ROUTES WAY**********************************/
 router.route("/")
     .get(catchAsync(campgroundsContoller.index))
-    .post(isLoggedIn, validateCampground, catchAsync(campgroundsContoller.createForm));
+    .post(isLoggedIn, validateCampground, catchAsync(campgroundsContoller.createCampground));
 
 router.get("/new", isLoggedIn, campgroundsContoller.renderNewForm);
 

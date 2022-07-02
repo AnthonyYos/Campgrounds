@@ -4,8 +4,8 @@
     <div class="col-6 offset-3">
         <form action="/campgrounds/<%=campground._id%>?_method=PUT " method="post" novalidate class="validated-form">
             <div class="mb-3">
-                <label class="form-label" for="title">Title</label>
-                <input class="form-control" type="text" id="title" name="campground[title]" required
+                <label class="form-label" for="name">Name</label>
+                <input class="form-control" type="text" id="name" name="campground[name]" required
                     value="<%= campground.title %>">
             </div>
             <div class="mb-3">

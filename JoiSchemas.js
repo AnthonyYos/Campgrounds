@@ -5,7 +5,7 @@ module.exports.campgroundJoi = Joi.object({
     // This is a Joi schema, uses the same term but nothing to do w/ a db
     // Used to validate data clientside
     campground: Joi.object({
-        title: Joi.string().required(),
+        name: Joi.string().required(),
         price: Joi.number().required().min(0),
         image: Joi.string().required(),
         location: Joi.string().required(),

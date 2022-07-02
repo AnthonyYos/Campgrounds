@@ -21,7 +21,7 @@ const seedDB = async () => {
     for (let i = 0; i < 50; i++) {
         const rand = Math.floor(Math.random() * 1000);
         const camp = new Campground({
-            title: `${indexGenerator(descriptors)}, ${indexGenerator(places)}`,
+            name: `${indexGenerator(descriptors)}, ${indexGenerator(places)}`,
             location: `${cities[rand].city}, ${cities[rand].state}`,
             image: `${indexGenerator(images)}`,
             price: priceGenerator(),

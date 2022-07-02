@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const opts = { toJSON: { virtuals: true } };
 
 const CampgroundSchema = new Schema({
-    title: String,
+    name: String,
     price: Number,
     description: String,
     location: String,
@@ -32,7 +32,7 @@ const CampgroundSchema = new Schema({
 
 
 CampgroundSchema.virtual("properties.popupMarker").get(function () {
-    return `<a href="/campgrounds/${this._id}">${this.title}</a>`;
+    return `<a href="/campgrounds/${this._id}">${this.name}</a>`;
 })
 
 CampgroundSchema.post("findOneAndDelete", async (campground) => {

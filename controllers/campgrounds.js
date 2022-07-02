@@ -10,7 +10,7 @@ const geoCodeService = mbxGeoCode(baseClient);
 
 // Campground index
 const index = async (req, res) => {
-    const campgrounds = await Campground.find({});
+    const campgrounds = await Campground.find({}).sort({ name: 1 });
     res.render("campgrounds/index", { campgrounds });
 }
 
@@ -20,7 +20,7 @@ const renderNewForm = (req, res) => {
 }
 
 // Post new camp
-const createForm = async (req, res, next) => {
+const createCampground = async (req, res, next) => {
     const campground = await populateCampground(req, res);
     await campground.save();
     console.log(campground)
@@ -74,7 +74,7 @@ const deleteCampground = async (req, res) => {
 }
 
 module.exports = {
-    index, renderNewForm, createForm, showCampground, editForm, updateCampground, deleteCampground
+    index, renderNewForm, createCampground, showCampground, editForm, updateCampground, deleteCampground
 }
 
 
@@ -93,7 +93,7 @@ const populateCampground = async (req, res) => {
 }
 
 /**
- const createForm = async (req, res, next) => {
+ const createCampground = async (req, res, next) => {
     const geoData = await geoCodeService.forwardGeocode({
         query: req.body.campground.location,
         limit: 5

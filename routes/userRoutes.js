@@ -1,3 +1,4 @@
+// src https://github.com/saintedlama/passport-local-mongoose/tree/main/examples/login
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require('passport');
@@ -31,7 +32,6 @@ router.get("/login", userController.loginForm)
 
 // passport.authenticate given by passport, calls req.login() behind the scenes
 // passport.authenticate() is middleware which will authenticate the request. By default, when authentication succeeds, the req.user property is set to the authenticated user
-
 router.post('/login', passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), userController.login)
 
 router.get("/logout", userController.logout);
