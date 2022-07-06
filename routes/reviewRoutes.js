@@ -1,7 +1,6 @@
 const express = require("express");
 // Routers get separate req.params, you need to set {mergeParams: true}
 const router = express.Router({ mergeParams: true });
-const ExpressError = require("../utils/ExpressError");
 const catchAsync = require("../utils/catchAsync");
 const { isLoggedIn, isReviewAuthorOrAdmin } = require("../utils/userPermissions");
 const { validateReview } = require("../utils/formValidation");
