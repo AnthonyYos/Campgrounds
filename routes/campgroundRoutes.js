@@ -1,24 +1,30 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const catchAsync = require("../utils/catchAsync");
-const { isLoggedIn, isAuthorOrAdmin } = require("../utils/userPermissions");
-const { validateCampground } = require("../utils/formValidation");
-const campgroundsContoller = require("../controllers/campgrounds");
-
+const catchAsync = require('../utils/catchAsync');
+const { isLoggedIn, isAuthorOrAdmin } = require('../utils/userPermissions');
+const { validateCampground } = require('../utils/formValidation');
+const campgroundsContoller = require('../controllers/campgrounds');
 
 /***********************************NEW ROUTES WAY**********************************/
-router.route("/")
-    .get(catchAsync(campgroundsContoller.index))
-    .post(isLoggedIn, validateCampground, catchAsync(campgroundsContoller.createCampground));
+router
+  .route('/')
+  .get(catchAsync(campgroundsContoller.index))
+  .post(isLoggedIn, validateCampground, catchAsync(campgroundsContoller.createCampground));
 
-router.get("/new", isLoggedIn, campgroundsContoller.renderNewForm);
+router.get('/new', isLoggedIn, campgroundsContoller.renderNewForm);
 
-router.route("/:id")
-    .get(catchAsync(campgroundsContoller.showCampground))
-    .put(isLoggedIn, isAuthorOrAdmin, validateCampground, catchAsync(campgroundsContoller.updateCampground))
-    .delete(isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.deleteCampground));
+router
+  .route('/:id')
+  .get(catchAsync(campgroundsContoller.showCampground))
+  .put(
+    isLoggedIn,
+    isAuthorOrAdmin,
+    validateCampground,
+    catchAsync(campgroundsContoller.updateCampground)
+  )
+  .delete(isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.deleteCampground));
 
-router.get("/:id/edit", isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.editForm));
+router.get('/:id/edit', isLoggedIn, isAuthorOrAdmin, catchAsync(campgroundsContoller.editForm));
 
 /***********************************OLD ROUTES WAY**********************************
 // Campground index
@@ -43,6 +49,5 @@ router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(campgrou
 router.delete("/:id", isLoggedIn, isAuthor, catchAsync(campgroundsContoller.deleteCampground))
 
 /***********************************OLD ROUTES WAY**********************************/
-
 
 module.exports = router;

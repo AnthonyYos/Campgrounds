@@ -1,23 +1,30 @@
 // src https://github.com/saintedlama/passport-local-mongoose/tree/main/examples/login
-const express = require("express");
+const express = require('express');
 const router = express.Router({ mergeParams: true });
 const passport = require('passport');
-const catchAsync = require("../utils/catchAsync");
-const User = require("../models/user");
-const userController = require("../controllers/user");
-
+const catchAsync = require('../utils/catchAsync');
+const User = require('../models/user');
+const userController = require('../controllers/user');
 
 /***********************************NEW ROUTES WAY**********************************/
 
-router.route("/register")
-    .get(userController.registerForm)
-    .post(catchAsync(userController.registerUser));
+router
+  .route('/register')
+  .get(userController.registerForm)
+  .post(catchAsync(userController.registerUser));
 
-router.route("/login")
-    .get(userController.loginForm)
-    .post(passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), userController.login);
+router
+  .route('/login')
+  .get(userController.loginForm)
+  .post(
+    passport.authenticate('local', {
+      failureFlash: true,
+      failureRedirect: '/login',
+    }),
+    userController.login
+  );
 
-router.get("/logout", userController.logout);
+router.get('/logout', userController.logout);
 
 module.exports = router;
 

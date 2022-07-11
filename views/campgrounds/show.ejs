@@ -16,7 +16,7 @@
             </ul>
             <!-- Documents are considered equal when they have matching _ids, unless neither document has an _id, in which case this function falls back to using deepEqual().
             TLDR: _id === _id comparison is being done behind the scenes -->
-            <% if (currentUser && campground.author.equals(currentUser._id) || currentUser.roles.includes("admin")){ %>
+            <% if (currentUser && (campground.author.equals(currentUser._id) || currentUser.roles.includes("admin"))){ %>
             <div class="card-body">
                 <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
                 <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
