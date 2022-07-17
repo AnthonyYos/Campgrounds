@@ -34,7 +34,7 @@ const secret = process.env.secret || '1234';
 // DB connection
 main()
   .then(() => console.log('Mongo connection open.'))
-  .catch((err) => console.log('Mongo connection error.', err));
+  .catch(err => console.log('Mongo connection error.', err));
 async function main() {
   await mongoose.connect(db_url);
 }
@@ -60,12 +60,12 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 
-app.engine('ejs', engine);
+app.engine('ejs', engine); // features of ejs-mate package are used to render .ejs files instead of the express packages
 // Setting an absolute path
 // __dirname is the directory path name where this specific file is located
 // joining __dirname path with /views, to create the absolute path to /views
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs'); // ejs is set as view engine imported/configured bts
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
