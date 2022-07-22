@@ -22,7 +22,6 @@ const renderNewForm = (req, res) => {
 const createCampground = async (req, res, next) => {
   const campground = await populateCampground(req, res);
   await campground.save();
-  console.log(campground);
   req.flash('success', 'Successfully made a new campground!');
   res.redirect(`/campgrounds/${campground._id}`);
 };
@@ -99,19 +98,3 @@ const populateCampground = async (req, res) => {
   campground.author = req.user._id;
   return campground;
 };
-
-/**
- const createCampground = async (req, res, next) => {
-    const geoData = await geoCodeService.forwardGeocode({
-        query: req.body.campground.location,
-        limit: 5
-    }).send()
-    const campground = new Campground(req.body.campground);
-    // geoData.body.features is an array
-    campground.geometry = geoData.body.features[0].geometry;
-    // Explicitly set this because id data wont be filled out via form
-    campground.author = req.user._id;
-    await campground.save();
-    req.flash('success', 'Successfully made a new campground!');
-    res.redirect(`/campgrounds/${campground._id}`)
-} */

@@ -14,7 +14,7 @@ const registerUser = async (req, res, next) => {
     // .register(user, password, cb) Convenience method to register a new user instance with a given password. Checks if username is unique.
     const registeredUser = await User.register(user, password);
     // req.login given by passport, use to login user after registeration
-    req.login(registeredUser, (err) => {
+    req.login(registeredUser, err => {
       if (err) return next(err);
       req.flash('success', 'Register Successful');
       res.redirect('/campgrounds');

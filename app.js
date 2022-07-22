@@ -54,7 +54,7 @@ const sessionConfig = {
   resave: false, //tell the session store that a particular session is still active, which is necessary because some stores will delete idle (unused) sessions after some time.
   saveUninitialized: true, //  At the end of the request, the session object will be stored in the session store (which is generally some sort of database)
   cookie: {
-    maxAge: Date.now(),
+    maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
   },
 };
@@ -67,15 +67,13 @@ app.engine('ejs', engine); // features of ejs-mate package are used to render .e
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs'); // ejs is set as view engine imported/configured bts
 
-app.use(express.urlencoded({ extended: true }));
+app.use([express.urlencoded({ extended: true }), express.static(path.join(__dirname, 'public'))]);
 app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(mongoSanitize());
 
 app.use(flash());
-app.use(passport.initialize());
 // Use if we want persistant login sessions (make sure it comes after session)
-app.use(passport.session());
+app.use([passport.initialize(), passport.session()]);
 // User.autheticate comes from passport-local-mongoose (imported in the User.js model)
 passport.use(new LocalStrategy(User.authenticate()));
 // Use to tell how to store user in session
